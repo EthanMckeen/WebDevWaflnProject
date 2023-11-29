@@ -1,0 +1,30 @@
+.sidebarFriend{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .sidebarFriend:hover{
+    text-decoration: underline;
+  }
+
+  .sidebarFriendName{
+    font-family: tamoha;
+    color: #9a6e61;
+    font-weight: 550;
+  }
+
+  .sidebarFriendName:hover{
+    font-family: tamoha;
+    color: #88619a;
+    font-weight: 550;
+  }
+
+  .sidebarFriendImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  

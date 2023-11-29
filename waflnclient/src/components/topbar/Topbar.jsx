@@ -4,12 +4,15 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
+//import {Link} from "react-router-dom"
 
 export default function Topbar(){
     return(
         <div className="topbarContainer">
             <div className="topbarLeft">
+                
                 <span className="logo">Wafln</span>
+                
             </div>
             <div className="topbarCenter">
                 <div className="searchbar">
@@ -36,7 +39,7 @@ export default function Topbar(){
                         <span className="topbarIconBadge">5</span>
                     </div>
                 </div>
-                <img src="assets\profilePicture\u1.jpg" alt="" className="topbarImg" />
+                <img src="/assets/profilePicture/defaultPic.jpg" alt="" className="topbarImg" />
             </div>
         </div>
     )
