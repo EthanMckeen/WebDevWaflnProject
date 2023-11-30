@@ -18,7 +18,7 @@ router.post("/register", async (req,res)=>{
         const newUser = new User({
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password,
+            password: hashedPassword,
         });
 
         //save user and return response
@@ -32,7 +32,7 @@ router.post("/register", async (req,res)=>{
 //Login
 router.post("/login", async (req,res)=>{
     try{
-        const user = await User.findOne({email:req.body.email});
+        const user = await User.findOne({email: req.body.email});
         !user && res.status(404).json("Usernotfound");
 
         const validPassword = await bcrypt.compare(req.body.password, user.password)

@@ -1,26 +1,56 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./post.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { Users } from "../../dummyData";
+import axios from "axios"
+import {format} from "timeago.js"
+import { Link } from "react-router-dom"
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({post}){
-    const [like,setLike] = useState(post.like)
-    const [isLiked,setisLiked] = useState(false)
+    const [like,setLike] = useState(post.likes.length);
+    const [isLiked,setIsLiked] = useState(false);
+    const [user,setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const {user: currentUser} = useContext(AuthContext);
+
+    useEffect(() => {
+        setIsLiked(post.likes.includes(currentUser._id));
+      }, [currentUser._id, post.likes]);
+
+    useEffect(()=>{
+        const fetchUser = async() =>{
+          const res = await axios.get(`/users?userId=${post.userId}`)
+          setUser(res.data)
+        }
+        fetchUser();
+      },[post.userId]);
 
     const likeHandler = ()=>{
+        try{
+            axios.put("/posts/" + post._id + "/like", {userId:currentUser._id});
+        }catch{}
         setLike(isLiked ? like -1 : like +1)
-        setisLiked(!isLiked)
+        setIsLiked(!isLiked)
     }
     return(
         <div className="post">
             <div className="postwrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img src={Users.filter(u=> u.id === post.userId)[0].profilePicture} alt="" className="postProfileImg" />
-                        <span className="postUsername">{Users.filter(u=> u.id === post.userId)[0].username}</span>
-                        <span className="postDate">{post.date}</span>
+                        <Link to={"/profile/" + user.username} style={{textDecoration: "none"}}>
+                            <img className="postProfileImg" 
+                            src={ 
+                                user.profilePicture
+                                ? PF + user.profilePicture
+                                : PF + "profilePicture/defaultPic.jpg"
+                                } 
+                            alt="" />
+                        </Link>
+                        <Link to={"/profile/" + user.username} style={{textDecoration: "none"}}>
+                            <span className="postUsername">{user.username}</span>
+                        </Link>
+                        <span className="postDate">{format(post.createdAt)}</span>
                     </div>
                     <div className="postTopRight">
                         <MoreVertIcon/>
@@ -28,7 +58,7 @@ export default function Post({post}){
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img src={PF+post?.photo} alt="" className="postImg" />
+                    <img src={post.img ? PF+post.img : ""} alt="" className="postImg" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">

@@ -74,6 +74,11 @@
     cursor: pointer;
 }
 
+.loginButton:disabled{
+    cursor: not-allowed;
+}
+
+
 .loginButton:hover{
     background-color: #9a6e61;
     color: white;
@@ -106,4 +111,8 @@
 .loginRegisterButton:hover{
     background-color: #9a6e61;
     color: white;
+}
+
+.loginRegisterButton:disabled{
+    cursor: not-allowed;
 }
