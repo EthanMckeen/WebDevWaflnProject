@@ -100,5 +100,34 @@
     height: 32px;
     border-radius: 50%;
     object-fit: cover;
+    border: solid 3px #bd9351;
     cursor: pointer;
   }
+
+
+
+  .signoutItem{
+    color: #bd9351;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 20px;
+    height: 28px;
+  }
+
+  .signoutItem:hover{
+    color: white;
+    background-color: #9a6e61;
+  }
+
+  .signoutIcon{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .signoutText{
+    font-weight: bold;
+  }
+

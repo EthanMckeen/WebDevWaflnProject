@@ -1,0 +1,76 @@
+.dialogTitle{
+    color:#9a6e61;
+    font-size: 40px;
+    font-weight: 500;
+    align-self: center;
+    padding: 10px;
+}
+
+.dialogHr{
+    border-top: 3px solid #cd7a61;
+    margin-bottom: 10px;
+}
+
+.editProfileForm{
+    height: 550px;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.editProfileInputItem{
+    background-color: gainsboro;
+    padding: 10px;
+}
+.editProfileLabel{
+    margin-left: 10px;
+    color:#9a6e61;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+
+.editProfileInput{
+    width: 80%;
+    resize: vertical;
+    padding: 5px;
+    margin: 10px 10px;
+    border-radius: 10px;
+    border: 1px solid  #695c4c;
+    align-self: center;
+    overflow: hidden;
+}
+
+.editProfileActions{
+    padding: 10px;
+    display: flex;
+    -webkit-box-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.editProfileSave{
+    flex: .4;
+    height: 40px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #5ea758;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.editProfileCancel{
+    flex: .6;
+    margin: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color:#ce4b34;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}

@@ -8,6 +8,8 @@ import {Link} from "react-router-dom"
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { logoutCall } from '../../apiCalls'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -16,13 +18,14 @@ export default function Topbar(){
 
     const { user, dispatch } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
-
+    const navigate = useNavigate();
     const handleClick = () => {
-        logoutCall(
-          dispatch
-        );
-      }
+        const confirmed = window.confirm("Are you sure you want to sign out?");
+        if (confirmed) {
+          logoutCall(dispatch);
+          navigate("/login");
+        }
+      };
 
 
 
@@ -58,7 +61,7 @@ export default function Topbar(){
                         <span className="topbarIconBadge">5</span>
                     </div>
                 </div>
-                <Link to={`/profile/${user.username}`}>
+                <Link to={`/profile/${user.username}`} >
                     <img 
                         src={
                             user.profilePicture
@@ -69,7 +72,10 @@ export default function Topbar(){
                             className="topbarImg" 
                     />
                 </Link>
-                <span className="topbarLink" onClick={handleClick}>Sign out</span>
+                <li className="signoutItem" onClick={handleClick}>
+                    <ExitToAppIcon className="signoutIcon"/> 
+                    <span className="signoutText">Sign out</span>
+                </li>
             </div>
         </div>
     )

@@ -25,4 +25,9 @@ export const Unfollow = (userId) => ({
 
 export const Logout=()=>({
     type:"LOGOUT",
+});
+
+export const UserUpdate = () => ({
+    type:"USER_UPDATE",
+    payload: user,
 })

@@ -8,16 +8,22 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import ProfileEditDialog from "../profileEditDialog/ProfileEditDialog";
 
 export default function Rightbar({ user }){
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [friends, setFriends] = useState([]);
     const { user: currentUser, dispatch } = useContext(AuthContext);
-    const [followed, setFollowed] = useState(
-        currentUser.followings.includes(user?.id)
-     );
+    const [followed, setFollowed] = useState( null );
+
+    useEffect(() => {
+        if (user && user._id) {
+            setFollowed(currentUser.followings.includes(user._id));
+        }
+  }, [user, currentUser]);
 
     useEffect(()=>{
+    if (user && user._id) {
         const getFriends = async ()=>{
             try{
                 const friendList = await axios.get("/users/friends/"+ user._id)
@@ -27,9 +33,11 @@ export default function Rightbar({ user }){
             }
         }
         getFriends();
+    }
     },[user])
 
-    const handleClick = async () => {
+
+    const handleClickFollow = async () => {
         try {
           if (followed) {
             await axios.put(`/users/${user._id}/unfollow`, {
@@ -46,6 +54,7 @@ export default function Rightbar({ user }){
         } catch (err) {
         }
       };
+
 
     const HomeRightBar = () => {
         return(
@@ -69,12 +78,14 @@ export default function Rightbar({ user }){
 
     const ProfileRightBar = () => {
         return (
-            <>
+        <>
+            {user.username === currentUser.username && (
+                <ProfileEditDialog/>
+            )}
             {user.username !== currentUser.username && (
                 <button 
                     className={followed ? "rightbarUnfollowButton" : "rightbarFollowButton" }
-                    onClick={handleClick}
-                    
+                    onClick={handleClickFollow}
                 >
                     {followed ? "Unfollow " : "Follow "}
                     {followed ? <RemoveIcon/> : <AddIcon/>}
@@ -116,11 +127,11 @@ export default function Rightbar({ user }){
             <hr className="rightbarHr"></hr>
             <div className="rightbarFollowings">
                 {friends?.map(friend=>(
-                <Link to={"/profile/"+ friend.username} style={{textDecoration: "none"}}>
+                <Link to={"/profile/"+ friend.username} style={{textDecoration: "none"}} className="pfpLink">
                     <div className="rightbarFollowing">
                         <img 
                             className="rightbarFollowingImg"
-                            src={friend.profilePicture ? PF+friend.profilePicture: PF+ "profilePicturte/defaultPic.jpg"} 
+                            src={friend.profilePicture ? PF + friend.profilePicture : PF + "profilePicture/defaultPic.jpg"} 
                             alt=""  
                         />
                         <span className="rightbarFollowingName">{friend.username}</span>
@@ -128,9 +139,11 @@ export default function Rightbar({ user }){
                 </Link>
                 ))}
             </div>
-            </>
+        </>
         )
     }
+
+
     return(
         <div className="rightbar">
             <div className="rightbarWrapper">

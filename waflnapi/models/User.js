@@ -41,6 +41,7 @@ const UserSchema = new mongoose.Schema({
     desc:{
         type:String,
         max:50,
+        default:""
     },
     pronouns:{
         type:Number,

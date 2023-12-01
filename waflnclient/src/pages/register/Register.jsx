@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Register(){
     const username = useRef();
@@ -75,9 +76,9 @@ export default function Register(){
                          <button className="loginButton" type="submit" disabled={isFetching}>
                             {isFetching ?  <CircularProgress color="inherit" size="2rem"/> : "Sign up"}
                         </button>
-                        <button className="loginRegisterButton"  disabled={isFetching}>
+                        <Link to="/login" className="registerLoginButton"  disabled={isFetching}>
                             {isFetching ?  <CircularProgress color="inherit" size="2rem"/> : "Have an Account"}
-                        </button>
+                        </Link>
                     </form>
                 </div>
             </div>

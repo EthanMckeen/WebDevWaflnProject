@@ -11,5 +11,18 @@ export const loginCall = async (userCreds, dispatch) => {
 };
 
 export const logoutCall = async (dispatch) => {
+    localStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
+    
 };
+
+export const updateUserInfo = async (userId, newUserInfo, dispatch) => {
+    try {
+        await axios.put(`/users/${userId}`, newUserInfo);
+        const res = await axios.get(`/users/?userId=${userId}`);     
+        console.log(res);
+        dispatch({type: "USER_UPDATE", payload: res.data});
+    } catch (err) {
+      console.log(err);
+    }
+  };
