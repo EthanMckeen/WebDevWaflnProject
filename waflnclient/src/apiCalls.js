@@ -25,4 +25,16 @@ export const updateUserInfo = async (userId, newUserInfo, dispatch) => {
     } catch (err) {
       console.log(err);
     }
-  };
+};
+
+export const searchBarSearch = async (searchTerm) => {
+    try {
+        const response = await axios.get(`/users?username=${searchTerm}`);
+        const user = response.data;
+        if (user) {
+            return 'Success';
+          } 
+        } catch (err) {
+          throw new Error('User not found');
+        }
+};

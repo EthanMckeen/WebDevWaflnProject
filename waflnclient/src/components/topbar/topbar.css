@@ -41,8 +41,14 @@
   .searchIcon {
     font-size: 20px !important;
     margin-left: 10px;
+    color:#695c4c;
   }
-  
+
+  .searchIcon:hover{
+    color: #fffaf1;
+    background-color: #695c4c;
+    border-radius: 50%;
+  }
   .searchInput {
     font-family: tamoha;
     background-color: #fffaf1;
